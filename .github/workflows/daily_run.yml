@@ -1,0 +1,28 @@
+name: T-Series Tracker
+
+on:
+  workflow_dispatch: # Manual Button
+  schedule:
+    - cron: '0 8 * * *' # Runs daily at 8:00 AM
+
+jobs:
+  run-etl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Libraries
+        run: pip install -r requirements.txt
+
+      - name: Run ETL Script
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python etl_bigquery.py
