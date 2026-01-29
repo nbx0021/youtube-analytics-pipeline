@@ -2,3 +2,7 @@ pandas
 pandas-gbq
 google-auth
 google-api-python-client
+plotly
+google-cloud-bigquery
+db-dtypes
+google-cloud-bigquery-storage
