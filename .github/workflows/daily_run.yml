@@ -1,9 +1,9 @@
-name: T-Series Tracker
+name: YouTube Growth Tracker # Updated name to reflect multiple channels
 
 on:
   workflow_dispatch: # Manual Button
   schedule:
-    - cron: '0 8 * * *' # Runs daily at 8:00 AM
+    - cron: '0 8 * * *' # Runs daily at 8:00 AM UTC
 
 jobs:
   run-etl:
@@ -21,7 +21,7 @@ jobs:
       - name: Install Libraries
         run: pip install -r requirements.txt
 
-      - name: Run ETL Script
+      - name: Run ETL Pipeline
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
