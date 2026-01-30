@@ -107,7 +107,7 @@ try:
             st.metric(
                 label=row["channel_name"],
                 value=f"{row['subscribers'] / 1_000_000:.2f}M subs",
-                delta=f"+{row['subscriber_growth'] / 1_000:.1f}K"
+                delta=f"👀 +{row['view_growth'] / 1_000_000:.2f}M Views"
             )
 
     st.divider()
