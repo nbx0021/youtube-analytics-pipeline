@@ -3,7 +3,7 @@ name: YouTube Growth Tracker # Updated name to reflect multiple channels
 on:
   workflow_dispatch: # Manual Button
   schedule:
-    - cron: '0 8 * * *' # Runs daily at 8:00 AM UTC
+    - cron: '17 8 * * *' # Runs at 8:17 UTC (1:47 PM IST) - Less traffic!
 
 jobs:
   run-etl:
