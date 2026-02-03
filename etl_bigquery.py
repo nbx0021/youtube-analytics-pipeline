@@ -18,14 +18,41 @@ CHANNEL_IDS = [
 ]
 
 TABLE_ID = "youtube_analytics.top_channels_stats" 
-PROJECT_ID = json.loads(os.environ["GCP_SA_KEY"])["project_id"]
 
 # --- STEP 1: AUTHENTICATION ---
+
+# --- Updated Authentication Logic ---
+
 print("🔑 Authenticating...")
-service_account_info = json.loads(os.environ["GCP_SA_KEY"])
-bq_credentials = service_account.Credentials.from_service_account_info(service_account_info)
-youtube_api_key = os.environ["YOUTUBE_API_KEY"]
+
+# 1. Handle BigQuery Credentials (GCP_SA_KEY vs service_key.json)
+if "GCP_SA_KEY" in os.environ:
+    # GitHub Actions Mode
+    print("  -> Loading GCP keys from Environment Variable...")
+    service_account_info = json.loads(os.environ["GCP_SA_KEY"])
+    bq_credentials = service_account.Credentials.from_service_account_info(service_account_info)
+    PROJECT_ID = service_account_info["project_id"]
+elif os.path.exists("service_key.json"):
+    # Docker/Local Mode
+    print("  -> Loading GCP keys from local file...")
+    bq_credentials = service_account.Credentials.from_service_account_file("service_key.json")
+    with open("service_key.json") as f:
+        PROJECT_ID = json.load(f)["project_id"]
+else:
+    raise FileNotFoundError("❌ No GCP Credentials found! (Set GCP_SA_KEY or add service_key.json)")
+
+# 2. Handle YouTube API Key
+# Docker needs this passed explicitly, GitHub has it in secrets
+youtube_api_key = os.environ.get("YOUTUBE_API_KEY")
+
+if not youtube_api_key:
+    raise ValueError("❌ YOUTUBE_API_KEY not found! You must pass it to Docker using -e")
+
+# 3. Build the Service
 youtube = build('youtube', 'v3', developerKey=youtube_api_key)
+
+# --- End of Updated Logic ---
+
 
 # --- STEP 2: EXTRACT (Batch Processing) ---
 all_data = [] # We will store all results in this list

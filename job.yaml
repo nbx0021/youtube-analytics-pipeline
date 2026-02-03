@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: youtube-etl-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: etl-container
+        # 👇 CHANGE THIS: Point to your specific Docker Hub address
+        image: nbx0021/youtube-etl:latest
+        
+        # 👇 DELETE THIS LINE (or comment it out):
+        # imagePullPolicy: Never
+        # 2. Inject the API Key from the Secret Vault
+        env:
+        - name: YOUTUBE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: youtube-api
+              key: api_key
+
+        # 3. Mount the JSON File from the Secret Vault
+        # 3. Mount the JSON File safely 
+        volumeMounts:
+        - name: google-cloud-key
+          mountPath: "/app/service_key.json"  # File path, not folder
+          subPath: "service_key.json"       # The specific file in the secret
+          readOnly: true
+
+      # 4. Define the Volume (The source of the file)
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: gcp-key
+
+      restartPolicy: Never
