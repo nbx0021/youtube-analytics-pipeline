@@ -10,9 +10,7 @@ spec:
         # 👇 CHANGE THIS: Point to your specific Docker Hub address
         image: nbx0021/youtube-etl:latest
         
-        # 👇 DELETE THIS LINE (or comment it out):
-        # imagePullPolicy: Never
-        # 2. Inject the API Key from the Secret Vault
+       
         env:
         - name: YOUTUBE_API_KEY
           valueFrom:
@@ -21,7 +19,7 @@ spec:
               key: api_key
 
         # 3. Mount the JSON File from the Secret Vault
-        # 3. Mount the JSON File safely 
+        #  Mount the JSON File safely 
         volumeMounts:
         - name: google-cloud-key
           mountPath: "/app/service_key.json"  # File path, not folder
