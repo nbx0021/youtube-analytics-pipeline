@@ -1,0 +1,105 @@
+settings:
+  max_videos_to_fetch: 5
+  include_shorts: false
+
+sectors:
+  # 🇮🇳 INDIAN TOP CREATORS (Verified IDs)
+  india_top:
+    - id: "UCj22tfcQrWG7EMEKS0qLeEg"
+      name: "CarryMinati"
+    - id: "UC5c9VlYTSvBSCaoMu_GI6gQ"
+      name: "Total Gaming"
+    - id: "UCX8pnu3DYUnx8qy8V_c6oHg"
+      name: "Techno Gamerz"
+    - id: "UCSiDGb0MnHFGjs4E2WKvShw"
+      name: "Mr. Indian Hacker"
+    - id: "UCebC4x5l2-PQxg46Ucv9CsA"
+      name: "Crazy XYZ"
+    - id: "UCBqFKDipsnzvJdt6UT0lMIg"
+      name: "Sandeep Maheshwari"
+    - id: "UCOhHO2ICt0ti9KAh-QHvttQ"
+      name: "Technical Guruji"
+    - id: "UC-CSyyi47VX1lD9zyeABW3w"
+      name: "Dhruv Rathee"
+    - id: "UCjvgGbPPn-FgYeguc5nxG4A"
+      name: "Sourav Joshi Vlogs"
+    - id: "UCiGyWN6DEbnj2alu7iapuKQ"
+      name: "Physics Wallah"
+
+  # 💻 TECH SECTOR
+  tech:
+    - id: "UCMiJRAwDNSNzuYeN2uWa0pA"
+      name: "Mrwhosetheboss"
+    - id: "UCBJycsmduvYEL83R_U4JriQ"
+      name: "Marques Brownlee"
+    - id: "UCXuqSBlHAE6Xw-yeJA0Tunw"
+      name: "Linus Tech Tips"
+    - id: "UCddiUEpeqJcYeBxX1IVBKvQ"
+      name: "The Verge"
+    - id: "UCVYamHliCI9rw1tHR1xbkfw"
+      name: "Dave2D"
+    - id: "UCsooa4yRKGN_zEE8iknghZA"
+      name: "Unbox Therapy"
+
+  # 💰 FINANCE SECTOR
+  finance:
+    - id: "UCGy7SkBjcIAgTiwkXEtPnYg"
+      name: "Andrei Jikh"
+    - id: "UCFQMnBA3CS502aghlcr0_aw"
+      name: "Coffeezilla"
+    - id: "UCV6KDgJskWaEckne5aPA0aQ"
+      name: "Graham Stephan"
+    - id: "UCigUBIf-zt_DA6xyOQtq2WA"
+      name: "ClearValue Tax"
+    - id: "UCJHObTFu75LOjJcmeAU5THA" # 🟢 UPDATED
+      name: "Casgains Academy"
+    - id: "UCUvvj5lwue7PspotMDjk5UA"
+      name: "Meet Kevin"
+    - id: "UCT3EznhW_CNFcfOlyDNTLLw" # 🟢 UPDATED
+      name: "Minority Mindset"
+    - id: "UCFBpVaKCC0ajGps1vf0AgBg" # 🟢 UPDATED
+      name: "Humphrey Yang"
+
+  # 🎬 ENTERTAINMENT SECTOR
+  entertainment:
+    - id: "UCX6OQ3DkcsbYNE6H8uQQuVA"
+      name: "MrBeast"
+    - id: "UCq-Fj5jknLsUf-MWSy4_brA"
+      name: "T-Series"
+    - id: "UCbCmjCuTUZos6Inko4u57UQ"
+      name: "Cocomelon"
+    - id: "UC-lHJZR3Gqxm24_Vd_AJ5Yw"
+      name: "PewDiePie"
+    - id: "UCJ5v_MCY6GNUBTO8-D3XoAg"
+      name: "WWE"
+    - id: "UCFFbwnve3yF62-tVXkTyHqg"
+      name: "Zee Music Company"
+    - id: "UC295-Dw_tDNtZXFeAPAW6Aw"
+      name: "5-Minute Crafts"
+    - id: "UCvlE5gTbOvjiolFlEm-c_Ow"
+      name: "Vlad and Niki"
+    - id: "UCpEhnqL0y41EpW2TvWAHD7Q"
+      name: "SET India"
+    - id: "UCJplp5SjeGSdVdwsfb9Q7lQ"
+      name: "Like Nastya"
+
+  # 🤖 DATA & AI SECTOR
+  data_ai:
+    - id: "UC7cs8q-gJRlGwj4A8OmCmXg"
+      name: "Alex The Analyst"
+    - id: "UCNU_lfiiWBdtULKOw6X0Dig"
+      name: "Krish Naik"
+    - id: "UCfzlCWGWYyIQ0aLC5w48gBQ"
+      name: "Sentdex"
+    - id: "UCbfYPyITQ-7l4upoX8nvctg"
+      name: "Two Minute Papers"
+    - id: "UCteRPiisgIoHtMgqHegpWAQ"
+      name: "Sundas Khalid"
+    - id: "UC8butISFwT-Wl7EV0hUK0BQ"
+      name: "FreeCodeCamp"
+    - id: "UCLLw7jmFsvfIVaUFsLs8mlQ"
+      name: "Luke Barousse"
+    - id: "UCiT9RITQ9PW6BhXK0y2jaeg"
+      name: "Ken Jee"
+    - id: "UCtYLUTtgS3k1Fg4y5tAhLbw"
+      name: "StatQuest with Josh Starmer"

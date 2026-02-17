@@ -1,28 +1,35 @@
-name: YouTube Growth Tracker # Updated name to reflect multiple channels
+name: YouTube Velocity Tracker
 
 on:
   workflow_dispatch: # Manual Button
   schedule:
-    - cron: '17 8 * * *' # Runs at 8:17 UTC (1:47 PM IST) - Less traffic!
+    # Runs at minute 35 past every 3rd hour (00:35, 03:35, 06:35, etc.)
+    # This is safe for quotas and close to your 2.5hr request.
+    - cron: '35 */3 * * *'
 
 jobs:
   run-etl:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: 📥 Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup Python
+      - name: 🐍 Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      - name: Install Libraries
-        run: pip install -r requirements.txt
+      - name: 📦 Install Libraries
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Run ETL Pipeline
+      - name: 🚀 Run ETL Pipeline
         env:
+          # We use the module flag (-m) to ensure imports work correctly
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: python etl_bigquery.py
+        # 🟢 We change directory (cd) to src first, then run the file
+        run: cd src && python etl.py
+        

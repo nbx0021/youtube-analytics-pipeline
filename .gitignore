@@ -212,3 +212,6 @@ service_key.json
 
 # Ignore Streamlit Local Secrets
 .streamlit/secrets.toml
+
+venv/
+__pycache__/
