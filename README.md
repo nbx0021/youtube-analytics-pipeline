@@ -1,103 +1,114 @@
-# 📊 YouTube Growth Analytics Pipeline
+# ⚡ YouTube Velocity Intelligence (v4.0)
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://youtube-analytics-pipeline-pkecprzlshg35cs2i4vwz5.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://youtube-velocity-tracker.streamlit.app/)
 [![Run ETL](https://github.com/nbx0021/youtube-analytics-pipeline/actions/workflows/daily_run.yml/badge.svg)](https://github.com/nbx0021/youtube-analytics-pipeline/actions/workflows/daily_run.yml)
 
 ## 🚀 Project Overview
-This project is a **Containerized Data Engineering Pipeline** that tracks the daily growth (Subscribers & Views) of top tech and entertainment YouTube channels.
 
-It automates the extraction of data using the **YouTube Data API**, stores it in a **Google BigQuery** Data Warehouse, and visualizes the trends in a real-time **Streamlit Dashboard**. The entire workflow is containerized with Docker and can be orchestrated via Kubernetes.
+**YouTube Velocity Intelligence** is a high-frequency data engineering pipeline designed to track real-time performance metrics of top-tier global and Indian YouTube creators.
 
-**Goal:** To analyze growth patterns of competitors like MrBeast, T-Series, and Cocomelon without manual data entry.
+Unlike standard analytics, this system focuses on **Velocity**—measuring how fast views grow in 3-hour windows—and **Thumbnail Psychology**, analyzing how colors and titles (e.g., ALL CAPS vs. Normal) impact virality.
+
+**Goal:** To provide actionable insights into the competitive landscape across Tech, Finance, AI, and the booming Indian content market.
 
 ---
 
-## 🏗️ Architecture
-The pipeline supports both Serverless (GitHub Actions) and Cloud-Native (Kubernetes) execution.
+## 🏗️ System Architecture
+
+The pipeline is built for high reliability and zero-cost scaling using a serverless-first approach.
 
 ```mermaid
-graph LR
-A[YouTube Data API] -->|Extract| B(Dockerized ETL Script)
-B -->|Load| C[(Google BigQuery)]
-D[Kubernetes Job / GitHub Actions] -->|Orchestrate| B
-C -->|Query| E[Streamlit Dashboard]
-E -->|Visualize| F[End User]
+graph TD
+    A[YouTube Data API v3] -->|Activities API| B(GitHub Actions Runner)
+    B -->|Preprocessing & Color Analysis| C[(Google BigQuery)]
+    C -->|SQL Query| D[Streamlit Dashboard]
+    D -->|Real-time IST Visualization| E[End User]
 
 ```
 
 ## 🛠️ Tech Stack
 
-* **Language:** Python 3.11 (Slim Image)
-* **Cloud Data Warehouse:** Google BigQuery
-* **Containerization:** Docker & Docker Hub
-* **Orchestration:** Kubernetes (K8s Jobs) & GitHub Actions
-* **Data Visualization:** Streamlit & Plotly
-* **Infrastructure:** Hybrid (Local K8s + Cloud Serverless)
+* **Language:** Python 3.11
+* **Data Warehouse:** Google BigQuery (Fact Table Architecture)
+* **Automation:** GitHub Actions (CRON: `35 */3 * * *`)
+* **Visuals:** Streamlit, Plotly (Dynamic Line Charts), & NumPy
+* **Image Processing:** Pillow (Dominant Color Extraction)
+* **Deployment:** Docker & Streamlit Cloud
 
 ---
 
-## ✨ Key Features
+## ✨ Upgraded Features (v4.0)
 
-* **🔄 Automated ETL:** Runs daily to fetch fresh subscriber counts and video metrics.
-* **🐳 Dockerized:** Fully containerized environment ensuring "write once, run anywhere" reliability.
-* **☸️ Kubernetes Ready:** Includes `job.yaml` for orchestration on K8s clusters.
-* **🛡️ Secure:** Uses Kubernetes Secrets and `.gitignore` to protect API keys.
-* **📈 Interactive UI:** Dashboard features dynamic line charts, growth heatmaps, and ranking battles.
+* **🇮🇳 India Top Gallery:** A dedicated live grid for the Indian market (CarryMinati, Dhruv Rathee, etc.) featuring instant performance metrics.
+* **📈 Velocity Tracking:** Line charts with vertical, scrollable legends for "one-by-one" asset comparison.
+* **🎨 Color Psychology:** Analyzes thumbnail dominant colors to see if specific hues (Red/Yellow) correlate with higher engagement.
+* **📣 Strategy Insights:** Automatically calculates the "CAPS Lift"—the percentage increase in views for videos using ALL CAPS titles.
+* **🕒 IST Timezone Sync:** All data snapshots are automatically converted from UTC to Indian Standard Time for accurate local analysis.
 
 ---
 
-## ⚙️ How to Run
+## ⚙️ Project Structure
 
-### Option 1: Run with Docker (Recommended)
+```text
+youtube-analytics-pipeline/
+├── .github/workflows/   # Automation (3-hour sync)
+├── config/              # YAML (Verified Channel IDs)
+├── dashboard/           # UI Engine (app.py)
+├── src/                 # ETL Engine (etl.py, image_utils.py)
+├── Dockerfile           # Containerization
+└── requirements.txt     # Dependencies
 
-No need to install Python dependencies manually.
+```
+
+---
+
+## 🚀 Setup & Execution
+
+### 1. Environment Configuration
+
+Create a `.env` or set GitHub Secrets for:
+
+* `YOUTUBE_API_KEY`: Google Cloud Console API Key.
+* `GCP_SA_KEY`: Service Account JSON (Converted to TOML for Streamlit).
+
+### 2. Local ETL Run
 
 ```bash
-# 1. Build the image
-docker build -t youtube-etl .
+# Run the pipeline manually
+python -m src/etl.py
 
-# 2. Run the container (Mounting secrets safely)
+```
+
+### 3. Dashboard Launch
+
+```bash
+streamlit run dashboard/app.py
+
+```
+
+### 4. Docker Deployment
+
+```bash
+# Pull the latest version from Docker Hub
+docker pull nbx0021/youtube-etl:latest
+
+# Run the container
 docker run --rm \
-  -e YOUTUBE_API_KEY="your_api_key_here" \
+  -e YOUTUBE_API_KEY="your_api_key" \
   -v $(pwd)/service_key.json:/app/service_key.json \
-  youtube-etl
+  nbx0021/youtube-etl
 
 ```
 
-### Option 2: Run with Kubernetes
+## 📊 Roadmap
 
-Simulate a production batch job.
-
-```bash
-# 1. Upload Secrets to Cluster
-kubectl create secret generic gcp-key --from-file=service_key.json
-kubectl create secret generic youtube-api --from-literal=api_key="your_api_key"
-
-# 2. Deploy Job
-kubectl apply -f job.yaml
-
-```
-
-### Option 3: Run Locally (Legacy Python Method)
-
-```bash
-pip install -r requirements.txt
-python etl_bigquery.py
-streamlit run dashboard.py
-
-```
+* [x] High-frequency (3-hour) data snapshots.
+* [x] Automated India-specific sector tracking.
+* [x] Thumbnail color extraction.
+* [ ] AI-driven title sentiment analysis."
 
 ---
 
-## 🤖 Automation (GitHub Actions)
+## 👤 Author
 
-The ETL script is also configured to run serverless via `.github/workflows/daily_run.yml`:
-
-* **Schedule:** Runs daily at 8:00 AM UTC.
-* **Manual Trigger:** Can be executed manually via the "Actions" tab.
-
----
-
-## 📊 Live Dashboard
-
-Check out the live analytics here: **[Link to Streamlit App](https://youtube-analytics-pipeline-pkecprzlshg35cs2i4vwz5.streamlit.app/)**
+**Narendra Bhandari**
